@@ -7,7 +7,9 @@ WORKDIR railway
 
 RUN python -m venv venv
 
-RUN source venv/bin/activate
+ENV VIRTUAL_ENV venv
+ENV PATH $VIRTUAL_ENV/bin:$PATH
+
 RUN pip install --upgrade pip
 
 COPY requirements.txt ./
