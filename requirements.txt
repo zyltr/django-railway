@@ -3,3 +3,5 @@ django-environ
 gunicorn
 ipython
 psycopg
+whitenoise
+whitenoise[brotli]
