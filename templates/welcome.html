@@ -12,8 +12,7 @@
     {% load static %}
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}"/>
     <link rel="icon" href="{% static 'favicon/favicon.ico' %}"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}"/>
+    <link rel="icon" sizes="16x16 32x32" href="{% static 'favicon/favicon-16x16.png' %}"/>
     <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}"/>
 
     <!-- Bootstrap CSS & Icons -->
@@ -25,12 +24,13 @@
     />
 
     <!-- HTMX -->
+    <!-- https://htmx.org/docs/ -->
     <script src="https://unpkg.com/htmx.org@1.9.7"
             integrity="sha384-EAzY246d6BpbWR7sQ8+WEm40J8c3dHFsqC58IgPlh4kMbRRI6P6WA+LA/qGAyAu8" crossorigin="anonymous"
     ></script>
 </head>
 <body>
-<main class="align-items-center d-flex justify-content-center vh-100">
+<main class="align-items-center bg-gradient bg-secondary d-flex justify-content-center vh-100">
     <div class="card m-4 text-center">
         <div class="ratio ratio-16x9 rounded">
             <video autoplay class="card-img-top" loop>

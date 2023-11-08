@@ -24,8 +24,8 @@ env = environ.Env()
 # For production, see
 # https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
-DEBUG = env.bool("DEBUG")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=".up.railway.app")
+DEBUG = env.bool("DEBUG", default=False)
 SECRET_KEY = env.str("SECRET_KEY")
 
 # Application definition
@@ -131,3 +131,20 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+# HTTP Security
+# https://docs.djangoproject.com/en/4.2/ref/settings/#http
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=3600)
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
+
+# Sessions
+# https://docs.djangoproject.com/en/4.2/ref/settings/#sessions
+
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
+
+# Core
+# https://docs.djangoproject.com/en/4.2/ref/settings/#core-settings
+
+CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
