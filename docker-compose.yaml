@@ -1,12 +1,8 @@
 services:
 
   django:
-    build: ./
-    command: [
-      "sh", "-c",
-      "python manage.py migrate --no-input &&
-       python manage.py collectstatic --no-input &&
-       python manage.py runserver --nostatic 0.0.0.0:8000" ]
+    build:
+      target: development
     depends_on:
       postgres:
         condition: service_healthy
@@ -35,7 +31,6 @@ services:
     image: postgres:latest
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
 
 volumes:
   postgres-data:

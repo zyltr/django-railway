@@ -24,7 +24,7 @@ env = environ.Env()
 # For production, see
 # https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=".up.railway.app")
+ALLOWED_HOSTS = env.str("ALLOWED_HOSTS", default=".up.railway.app").split(",")
 DEBUG = env.bool("DEBUG", default=False)
 SECRET_KEY = env.str("SECRET_KEY")
 
@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+if DEBUG is True:
+    INSTALLED_APPS += [
+        "django_extensions",
+    ]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -49,6 +54,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if DEBUG:
+    MIDDLEWARE += []
 
 ROOT_URLCONF = "website.urls"
 
@@ -135,16 +143,19 @@ STORAGES = {
 # HTTP Security
 # https://docs.djangoproject.com/en/4.2/ref/settings/#http
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
-SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=3600)
-SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
+if DEBUG is False:
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
+    SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=3600)
+    SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
 
 # Sessions
 # https://docs.djangoproject.com/en/4.2/ref/settings/#sessions
 
-SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
+if DEBUG is False:
+    SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
 
 # Core
 # https://docs.djangoproject.com/en/4.2/ref/settings/#core-settings
 
-CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
+if DEBUG is False:
+    CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
