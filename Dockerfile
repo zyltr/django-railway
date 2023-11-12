@@ -53,8 +53,8 @@ ENV DJANGO_SETTINGS_MODULE=website.settings.production
 RUN pip install -r requirements/production.txt
 
 RUN <<CAT cat >> ./railway.sh
-  python manage.py check --deploy
   python manage.py collectstatic --no-input
+  python manage.py check --deploy
   gunicorn website.wsgi
 CAT
 
