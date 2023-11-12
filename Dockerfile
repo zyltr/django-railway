@@ -1,7 +1,11 @@
-FROM python:latest as python
+FROM python:latest as base
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ARG PYTHONDONTWRITEBYTECODE=1
+ARG PYTHONUNBUFFERED=1
+
+ENV DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+ENV DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+ENV DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
 
 WORKDIR railway/
 
@@ -10,24 +14,48 @@ ENV PATH=/railway/venv/bin:$PATH
 
 RUN pip install --upgrade pip
 
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-
 COPY ./ ./
 
+COPY <<-"RAILWAY" ./railway.sh
+  #!/usr/bin/env sh
 
-# Staging
-FROM python as development
+  python manage.py migrate --no-input
 
-RUN pip install django-extensions ipython
+  if ! [ -z $DJANGO_SUPERUSER_EMAIL ] && ! [ -z $DJANGO_SUPERUSER_PASSWORD ] && ! [ -z $DJANGO_SUPERUSER_USERNAME ]
+  then
+    python manage.py createsuperuser --no-input
+  fi
 
-CMD ["sh", "-c", "python manage.py check --deploy && python manage.py migrate --noinput && python manage.py collectstatic --noinput && python manage.py runserver --nostatic 0.0.0.0:8000"]
+RAILWAY
+
+RUN chmod +x ./railway.sh
+
+
+# Local
+FROM base as local
+
+ENV DJANGO_SETTINGS_MODULE=website.settings.local
+
+RUN pip install -r requirements/local.txt
+
+RUN <<CAT cat >> ./railway.sh
+  python manage.py runserver_plus --nostatic 0.0.0.0:8000
+CAT
+
+CMD ./railway.sh
 
 
 # Production
-FROM python as production
+FROM base as production
 
-COPY railway.sh ./
-RUN chmod +x railway.sh
+ENV DJANGO_SETTINGS_MODULE=website.settings.production
 
-CMD sh railway.sh
+RUN pip install -r requirements/production.txt
+
+RUN <<CAT cat >> ./railway.sh
+  python manage.py check --deploy
+  python manage.py collectstatic --no-input
+  gunicorn website.wsgi
+CAT
+
+CMD ./railway.sh

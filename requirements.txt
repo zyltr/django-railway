@@ -1,6 +1,0 @@
-Django
-django-environ
-gunicorn
-psycopg
-whitenoise
-whitenoise[brotli]

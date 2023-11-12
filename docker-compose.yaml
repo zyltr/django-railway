@@ -1,16 +1,16 @@
 services:
 
-  django:
+  local:
     build:
-      target: development
+      target: local
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      ALLOWED_HOSTS: .localhost,127.0.0.1,::1
       DATABASE_URL: postgresql://user:password@postgres/database
-      DEBUG: True
-      SECRET_KEY: secret
+      DJANGO_SUPERUSER_EMAIL: su@email.com
+      DJANGO_SUPERUSER_PASSWORD: password
+      DJANGO_SUPERUSER_USERNAME: su
     ports:
       - 8000:8000
     volumes:
