@@ -6,7 +6,14 @@ from .base import *
 # Core Settings
 # https://docs.djangoproject.com/en/4.2/ref/settings/#core-settings
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[".localhost", "127.0.0", "::1"])
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=[
+        ".localhost",
+        "127.0.0",
+        "::1",
+    ],
+)
 
 INSTALLED_APPS += [
     # django-extensions
@@ -17,10 +24,8 @@ INSTALLED_APPS += [
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#database
 
-DATABASE = env.db("DATABASE_URL", default="sqlite:///db.sqlite3")
-
 DATABASES = {
-    "default": DATABASE,
+    "default": env.db("DATABASE_URL", default="sqlite:///local.db"),
 }
 
 # Debugging

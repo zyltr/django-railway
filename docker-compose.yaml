@@ -8,9 +8,9 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://user:password@postgres/database
-      DJANGO_SUPERUSER_EMAIL: su@email.com
+      DJANGO_SUPERUSER_EMAIL: local@email.com
       DJANGO_SUPERUSER_PASSWORD: password
-      DJANGO_SUPERUSER_USERNAME: su
+      DJANGO_SUPERUSER_USERNAME: local
     ports:
       - 8000:8000
     volumes:
