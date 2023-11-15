@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Title -->
-    <title>Welcome!</title>
+    <title>Railway</title>
     <!-- Favicon -->
     <!-- https://favicon.io -->
     {% load static %}
@@ -29,13 +29,10 @@
 <main class="align-items-center bg-gradient bg-secondary d-flex justify-content-center vh-100">
     <div class="card m-4 text-center">
         <div class="ratio ratio-16x9 rounded">
-            <video autoplay controls class="card-img-top" loop>
-                <source src="{% static 'movie/subway.webm' %}" type="video/webm"/>
-                <source src="{% static 'movie/subway.mp4' %}" type="video/mp4"/>
-            </video>
+            <img alt="A moving subway" class="card-img-top" src="{% static 'image/subway.gif' %}">
         </div>
         <div class="card-body">
-            <h5 class="card-title">Hello World!</h5>
+            <h5 class="card-title">Congratulations</h5>
             <p class="card-text text-secondary">My first project using <span>Django and Railway</span>!</p>
             <a class="card-link" href="https://docs.djangoproject.com/en/dev/" target="_blank">Django</a>
             <a class="card-link" href="https://docs.railway.app/" target="_blank">Railway</a>

@@ -73,10 +73,10 @@ STORAGES = {
 # Globalization (i18n/l10n)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#globalization-i18n-l10n
 
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
-USE_I18N = True
-USE_TZ = True
+LANGUAGE_CODE = env.str("LANGUAGE_CODE", default="en-us")
+TIME_ZONE = env.str("TIME_ZONE", default="UTC")
+USE_I18N = env.bool("USE_I18N", default=True)
+USE_TZ = env.bool("USE_TZ", default=True)
 
 # HTTP
 # https://docs.djangoproject.com/en/4.2/ref/settings/#http
