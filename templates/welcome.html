@@ -25,11 +25,12 @@
             integrity="sha384-EAzY246d6BpbWR7sQ8+WEm40J8c3dHFsqC58IgPlh4kMbRRI6P6WA+LA/qGAyAu8" crossorigin="anonymous"
     ></script>
 </head>
-<body>
-<main class="align-items-center bg-gradient bg-secondary d-flex justify-content-center vh-100">
+<body class="bg-secondary">
+<main class="align-items-center bg-gradient d-flex justify-content-center vh-100">
     <div class="card m-4 text-center">
         <div class="ratio ratio-16x9 rounded">
-            <img alt="A moving subway" class="card-img-top" src="{% static 'image/subway.gif' %}">
+            <img alt="A moving subway" class="card-img-top d-none" id="subway" src="{% static 'image/subway.gif' %}">
+            <div class="bg-secondary placeholder placeholder-wave rounded-top" id="subway-placeholder"></div>
         </div>
         <div class="card-body">
             <h5 class="card-title">Congratulations</h5>
@@ -45,5 +46,13 @@
 <!-- Bootstrap JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"
         integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script>
+<script>
+    let subwayImage = document.getElementById("subway");
+    subwayImage.onload = (_) => {
+        let subwayPlaceholder = document.getElementById("subway-placeholder");
+        subwayImage.classList.remove("d-none");
+        subwayPlaceholder.remove();
+    };
+</script>
 </body>
 </html>
