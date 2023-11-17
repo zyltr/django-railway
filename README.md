@@ -2,6 +2,8 @@
 
 A simple Railway template project
 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/BHTYIP)
+
 ## Features
 
 * Bootstrap
@@ -11,7 +13,6 @@ A simple Railway template project
 * HTMX
 
 ## Usage
-
 
 ### Local
 
