@@ -4,19 +4,14 @@ A simple Railway template project
 
 ## Features
 
----
-
 * Bootstrap
 * Dockerfile
 * Docker Compose
 * Django
 * HTMX
 
----
-
 ## Usage
 
----
 
 ### Local
 
