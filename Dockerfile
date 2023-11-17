@@ -24,6 +24,7 @@ COPY <<-"RAILWAY" ./railway.sh
 
   python manage.py migrate --no-input
 
+  # If any of these three environment variables are empty, or not defined, then a superuser is not created
   if ! [ -z $DJANGO_SUPERUSER_EMAIL ] && ! [ -z $DJANGO_SUPERUSER_PASSWORD ] && ! [ -z $DJANGO_SUPERUSER_USERNAME ]
   then
     python manage.py createsuperuser --no-input
